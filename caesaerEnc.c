@@ -1,75 +1,65 @@
-﻿#include<stdio.h>
-
-
-#include<ctype.h>
-
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
 
 int main()
-
-
 {
-
-
-  char text[500], ch;
-
-
+  char mes[10],emes[10],dec[10];
   int key;
-
-
-  // taking user input
-  printf("Enter a message to encrypt: ");
-
-
-  scanf("%s", text);
-
-
-  printf("Enter the key: ");
-
-
-  scanf("%d", & key);
-
-
-  // visiting character by character
-
-
-  for (int i = 0; text[i] != '\0'; ++i) {
-
-
-    ch = text[i];
-    // check for valid character
-    if (isalnum(ch)) {
-
-
-      // lower case characters
-      if (islower(ch)) {
-        ch = (ch - 'a' + key) % 26 + 'a';
-      }
-      // uppercase characters
-      if (isupper(ch)) {
-        ch = (ch - 'A' + key) % 26 + 'A';
-      }
-
-
-      // numbers
-      if (isdigit(ch)) {
-        ch = (ch - '0' + key) % 10 + '0';
-      }
-    }
-    // invalid character
-    else {
-      printf("Invalid Message");
-    }
-
-
-    // adding encoded answer 
-    text[i] = ch;
-
-
+  char ch;
+  printf("Enter the text\n");
+  scanf("%s",mes);
+  printf("Enter the key\n");
+  scanf("%d",&key);
+  
+  for(int i=0;mes[i]!='\0';i++)
+  {
+     ch = mes[i];
+     if(ch>='a' && ch<='z')
+     {
+         ch = ch+key;
+         if(ch>'z')
+         {
+         ch = ch-'z'+'a'-1;
+         }
+         emes[i]=ch;
+     }
+     else if(ch>='A' && ch<='Z')
+     {
+         ch = ch+key;
+         if(ch>'Z')
+         {
+         ch = ch-'Z'+'A'-1;
+         }
+         emes[i]=ch;
+     }
   }
-
-
-  printf("Encrypted message: %s", text);
-
-
-  return 0;
+   
+  printf("encrypted mes: %s \n",emes);
+  
+   for(int i=0;mes[i]!='\0';i++)
+  {
+     ch = emes[i];
+     if(ch>='a' && ch<='z')
+     {
+         ch = ch-key;
+         if(ch<'a')
+         {
+         ch = 'z'-('a'-ch-1);
+         }
+         dec[i]=ch;
+     }
+     else if(ch>='A' && ch<='Z')
+     {
+         ch = ch-key;
+         if(ch<'A')
+         {
+         ch ='Z'-('A'-ch-1) ;
+         }
+         dec[i]=ch;
+     }
+  }
+   
+  printf("decrypted mes: %s \n",dec);
+  
 }
